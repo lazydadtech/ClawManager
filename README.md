@@ -1,4 +1,4 @@
-# 🦞 OpenClaw Mission Control Builder
+# 🦞 OpenClaw Mission Control Dashboard.
 
 A comprehensive AI agent management dashboard and reusable skill for OpenClaw deployments. Monitor, control, and manage your AI agents with real-time metrics, task management, financial tracking, and intelligent backup/restore capabilities.
 
