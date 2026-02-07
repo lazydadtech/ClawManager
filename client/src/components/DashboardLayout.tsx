@@ -21,7 +21,8 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Users } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { LayoutDashboard, LogOut, PanelLeft, Users, Moon, Sun } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
@@ -109,6 +110,7 @@ function DashboardLayoutContent({
   const { user, logout } = useAuth();
   const [location, setLocation] = useLocation();
   const { state, toggleSidebar } = useSidebar();
+  const { theme, toggleTheme } = useTheme();
   const isCollapsed = state === "collapsed";
   const [isResizing, setIsResizing] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -222,6 +224,22 @@ function DashboardLayoutContent({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem
+                  onClick={toggleTheme}
+                  className="cursor-pointer"
+                >
+                  {theme === "light" ? (
+                    <>
+                      <Moon className="mr-2 h-4 w-4" />
+                      <span>Dark Mode</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sun className="mr-2 h-4 w-4" />
+                      <span>Light Mode</span>
+                    </>
+                  )}
+                </DropdownMenuItem>
+                <DropdownMenuItem
                   onClick={logout}
                   className="cursor-pointer text-destructive focus:text-destructive"
                 >
@@ -255,6 +273,17 @@ function DashboardLayoutContent({
                 </div>
               </div>
             </div>
+            <button
+              onClick={toggleTheme}
+              className="h-9 w-9 flex items-center justify-center hover:bg-accent rounded-lg transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "light" ? (
+                <Moon className="h-4 w-4 text-muted-foreground" />
+              ) : (
+                <Sun className="h-4 w-4 text-muted-foreground" />
+              )}
+            </button>
           </div>
         )}
         <main className="flex-1 p-4">{children}</main>

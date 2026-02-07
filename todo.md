@@ -136,6 +136,14 @@
 - [x] Auth logout tests (1 test)
 - [x] All tests passing (17/17 ✓)
 
+## Dark Mode Feature
+
+- [x] Implement theme toggle button in header
+- [x] Add dark mode CSS variables and colors
+- [x] Update all components for dark mode compatibility
+- [x] Store theme preference in localStorage
+- [x] Add smooth theme transition animations
+
 ## Known Issues & Improvements
 
 - API integration endpoints needed for OpenClaw connection
