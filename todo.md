@@ -208,3 +208,26 @@
 - [ ] Test API configuration page (Phase 2)
 - [ ] Performance testing with multiple agents (Phase 2)
 - [x] Create Phase 1 checkpoint
+
+
+## Phase 1: Social Media Signup (MVP)
+
+### Multi-Provider OAuth UI
+- [x] Update Home page with provider selection buttons (Google, Microsoft, Apple, X)
+- [x] Create provider-specific login flow handlers
+- [x] Add provider icons and branding
+- [x] Implement provider selection UI component
+- [x] Add fallback to Manus default OAuth
+
+### Database Updates
+- [x] Track provider information in users table (loginMethod field)
+- [x] Store provider-specific user IDs (via Manus OAuth)
+- [x] Add provider metadata to user profile
+
+### Testing & Delivery
+- [x] Test Google OAuth login flow (unit tests)
+- [x] Test Microsoft OAuth login flow (unit tests)
+- [x] Test Apple OAuth login flow (unit tests)
+- [x] Test X/Twitter OAuth login flow (unit tests)
+- [x] Verify user creation and session management (21 tests passing)
+- [ ] Test provider switching in Phase 2

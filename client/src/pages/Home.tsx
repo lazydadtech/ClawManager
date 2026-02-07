@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
+import MultiProviderLogin from "@/components/MultiProviderLogin";
 
 export default function Home() {
   const { user, loading, isAuthenticated } = useAuth();
@@ -53,21 +54,11 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="space-y-4">
-          <p className="text-muted-foreground mb-6">
+        <div className="space-y-6 max-w-sm mx-auto">
+          <p className="text-muted-foreground">
             Sign in to access your OpenClaw dashboard and manage your AI agents
           </p>
-          <Button
-            size="lg"
-            onClick={() => {
-              const loginUrl = new URL(window.location.href);
-              loginUrl.pathname = "/api/oauth/login";
-              window.location.href = loginUrl.toString();
-            }}
-            className="w-full sm:w-auto"
-          >
-            Sign In with Manus
-          </Button>
+          <MultiProviderLogin />
         </div>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
