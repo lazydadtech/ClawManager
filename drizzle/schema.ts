@@ -277,3 +277,119 @@ export const backupSchedules = mysqlTable("backupSchedules", {
 
 export type BackupSchedule = typeof backupSchedules.$inferSelect;
 export type InsertBackupSchedule = typeof backupSchedules.$inferInsert;
+
+
+/**
+ * API Configuration table - stores OpenClaw API connection details
+ */
+export const apiConfigurations = mysqlTable("apiConfigurations", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  apiEndpoint: text("apiEndpoint").notNull(),
+  authMethod: mysqlEnum("authMethod", ["api_key", "oauth", "bearer_token"]).notNull(),
+  apiKey: text("apiKey"), // Encrypted
+  bearerToken: text("bearerToken"), // Encrypted
+  oauthClientId: varchar("oauthClientId", { length: 255 }), // Encrypted
+  oauthClientSecret: text("oauthClientSecret"), // Encrypted
+  pollingInterval: int("pollingInterval").default(5000), // milliseconds
+  connectionType: mysqlEnum("connectionType", ["websocket", "sse", "http_polling"]).default("http_polling"),
+  isActive: boolean("isActive").default(true),
+  lastTestedAt: timestamp("lastTestedAt"),
+  testStatus: mysqlEnum("testStatus", ["success", "failed", "pending"]),
+  testError: text("testError"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ApiConfiguration = typeof apiConfigurations.$inferSelect;
+export type InsertApiConfiguration = typeof apiConfigurations.$inferInsert;
+
+/**
+ * Agent Metrics table - stores real-time and historical agent metrics
+ */
+export const agentMetrics = mysqlTable("agentMetrics", {
+  id: int("id").autoincrement().primaryKey(),
+  agentId: int("agentId").notNull(),
+  userId: int("userId").notNull(),
+  cpuUsage: int("cpuUsage"), // percentage 0-100
+  memoryUsage: int("memoryUsage"), // percentage 0-100
+  uptime: int("uptime"), // seconds
+  uptimePercentage: int("uptimePercentage"), // percentage 0-100
+  requestsProcessed: int("requestsProcessed").default(0),
+  requestsFailed: int("requestsFailed").default(0),
+  averageLatency: int("averageLatency"), // milliseconds
+  errorRate: int("errorRate"), // percentage 0-100
+  queueDepth: int("queueDepth").default(0),
+  lastUpdate: timestamp("lastUpdate").defaultNow(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type AgentMetric = typeof agentMetrics.$inferSelect;
+export type InsertAgentMetric = typeof agentMetrics.$inferInsert;
+
+/**
+ * Alerts table - stores real-time alerts for critical issues
+ */
+export const alerts = mysqlTable("alerts", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  agentId: int("agentId"),
+  alertType: mysqlEnum("alertType", ["agent_down", "high_error_rate", "high_cpu", "high_memory", "connection_lost"]).notNull(),
+  severity: mysqlEnum("severity", ["critical", "warning", "info"]).notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
+  message: text("message").notNull(),
+  status: mysqlEnum("status", ["active", "acknowledged", "resolved"]).default("active").notNull(),
+  acknowledgedAt: timestamp("acknowledgedAt"),
+  acknowledgedBy: int("acknowledgedBy"),
+  resolvedAt: timestamp("resolvedAt"),
+  emailSent: boolean("emailSent").default(false),
+  emailSentAt: timestamp("emailSentAt"),
+  metadata: json("metadata"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Alert = typeof alerts.$inferSelect;
+export type InsertAlert = typeof alerts.$inferInsert;
+
+/**
+ * Alert History table - tracks all alert events for auditing
+ */
+export const alertHistory = mysqlTable("alertHistory", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  alertId: int("alertId").notNull(),
+  action: mysqlEnum("action", ["created", "acknowledged", "resolved", "email_sent", "escalated"]).notNull(),
+  performedBy: int("performedBy"),
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type AlertHistory = typeof alertHistory.$inferSelect;
+export type InsertAlertHistory = typeof alertHistory.$inferInsert;
+
+/**
+ * Monitoring Configuration table - stores user preferences for monitoring
+ */
+export const monitoringConfigurations = mysqlTable("monitoringConfigurations", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().unique(),
+  enableRealTimeAlerts: boolean("enableRealTimeAlerts").default(true),
+  enableEmailNotifications: boolean("enableEmailNotifications").default(true),
+  emailForCriticalAlerts: varchar("emailForCriticalAlerts", { length: 320 }),
+  emailForWarningAlerts: varchar("emailForWarningAlerts", { length: 320 }),
+  criticalErrorRateThreshold: int("criticalErrorRateThreshold").default(10), // percentage
+  warningErrorRateThreshold: int("warningErrorRateThreshold").default(5), // percentage
+  criticalCpuThreshold: int("criticalCpuThreshold").default(90), // percentage
+  warningCpuThreshold: int("warningCpuThreshold").default(75), // percentage
+  criticalMemoryThreshold: int("criticalMemoryThreshold").default(90), // percentage
+  warningMemoryThreshold: int("warningMemoryThreshold").default(75), // percentage
+  agentDownTimeout: int("agentDownTimeout").default(60000), // milliseconds
+  metricsRetentionDays: int("metricsRetentionDays").default(7),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type MonitoringConfiguration = typeof monitoringConfigurations.$inferSelect;
+export type InsertMonitoringConfiguration = typeof monitoringConfigurations.$inferInsert;

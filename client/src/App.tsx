@@ -13,6 +13,7 @@ import CronJobs from "./pages/CronJobs";
 import DocuDigest from "./pages/DocuDigest";
 import AgentHub from "./pages/AgentHub";
 import BackupRestore from "./pages/BackupRestore";
+import ApiConfiguration from "./pages/ApiConfiguration";
 
 function Router() {
   return (
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/docu-digest" component={DocuDigest} />
       <Route path="/agent-hub" component={AgentHub} />
       <Route path="/backup-restore" component={BackupRestore} />
+      <Route path="/api-config" component={ApiConfiguration} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

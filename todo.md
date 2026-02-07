@@ -157,3 +157,54 @@
 3. Customize agent personalities and task templates
 4. Setup automatic backup schedules
 5. Configure spending alerts and budget limits
+
+
+## Phase 1: Real-time Monitoring (MVP)
+
+### API Configuration
+- [x] Create API Configuration page with secure form
+- [x] Add fields for OpenClaw API endpoint URLs
+- [x] Implement API key and authentication method storage
+- [x] Add polling interval configuration
+- [x] Create connection test functionality
+- [x] Store encrypted credentials in database
+
+### Real-time Monitoring Service
+- [ ] Build WebSocket connection handler (Phase 2)
+- [ ] Implement SSE (Server-Sent Events) fallback (Phase 2)
+- [ ] Add HTTP polling with configurable intervals (Phase 2)
+- [ ] Create data aggregation service (Phase 2)
+- [ ] Implement connection retry logic (Phase 2)
+- [ ] Add error handling and logging (Phase 2)
+
+### Agent Metrics & Trending
+- [x] Create agent health metrics collection (schema)
+- [x] Implement uptime percentage tracking (schema)
+- [x] Add CPU/Memory usage per agent (schema)
+- [ ] Build 24-hour trend chart visualization (Phase 2)
+- [x] Create metrics database schema
+- [ ] Implement metrics aggregation service (Phase 2)
+
+### Alert System
+- [x] Create alert database schema (alerts, alert_history)
+- [ ] Implement real-time alert detection (Phase 2)
+- [x] Add alert severity levels (critical, warning, info)
+- [ ] Build email notification service (Phase 2)
+- [ ] Create alert management UI (Phase 2)
+- [x] Implement alert acknowledgment system (backend)
+
+### Enhanced Dashboard
+- [ ] Update Mission Control with live metrics (Phase 2)
+- [ ] Add real-time status indicators (Phase 2)
+- [ ] Implement 24-hour trend charts (Phase 2)
+- [ ] Add alert notification display (Phase 2)
+- [ ] Create metrics refresh mechanism (Phase 2)
+- [ ] Add connection status indicator (Phase 2)
+
+### Testing & Delivery
+- [x] Write unit tests for monitoring service (31 tests)
+- [ ] Test WebSocket/SSE/polling connections (Phase 2)
+- [ ] Verify alert triggering and notifications (Phase 2)
+- [ ] Test API configuration page (Phase 2)
+- [ ] Performance testing with multiple agents (Phase 2)
+- [x] Create Phase 1 checkpoint
