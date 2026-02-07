@@ -2,10 +2,18 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
 import { Loader2 } from "lucide-react";
+import { useEffect } from "react";
 
 export default function Home() {
   const { user, loading, isAuthenticated } = useAuth();
   const [, navigate] = useLocation();
+
+  // Use useEffect to handle navigation outside of render
+  useEffect(() => {
+    if (isAuthenticated && user && !loading) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, user, loading, navigate]);
 
   if (loading) {
     return (
@@ -18,9 +26,16 @@ export default function Home() {
     );
   }
 
+  // If authenticated, show loading while redirect happens
   if (isAuthenticated && user) {
-    navigate("/dashboard");
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <p className="text-muted-foreground">Redirecting to dashboard...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
