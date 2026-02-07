@@ -1,0 +1,62 @@
+CREATE TABLE `backupSchedules` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`frequency` enum('daily','weekly','monthly') NOT NULL,
+	`dayOfWeek` int,
+	`dayOfMonth` int,
+	`time` varchar(5),
+	`isActive` boolean DEFAULT true,
+	`retentionDays` int DEFAULT 30,
+	`lastRun` timestamp,
+	`nextRun` timestamp,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `backupSchedules_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `backups` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`label` varchar(255) NOT NULL,
+	`description` text,
+	`backupType` enum('manual','automatic') NOT NULL,
+	`status` enum('pending','in_progress','completed','failed') NOT NULL DEFAULT 'pending',
+	`s3Key` varchar(255),
+	`s3Url` text,
+	`databaseSnapshot` text,
+	`size` int,
+	`itemCount` int,
+	`includesAgents` boolean DEFAULT true,
+	`includesTasks` boolean DEFAULT true,
+	`includesDocuments` boolean DEFAULT true,
+	`includesMetrics` boolean DEFAULT true,
+	`includesCronJobs` boolean DEFAULT true,
+	`includesUseCases` boolean DEFAULT true,
+	`includesBudgetAlerts` boolean DEFAULT true,
+	`checksum` varchar(64),
+	`retentionDays` int DEFAULT 30,
+	`expiresAt` timestamp,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `backups_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `restoreOperations` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`backupId` int NOT NULL,
+	`strategy` enum('replace','merge') NOT NULL,
+	`status` enum('pending','in_progress','completed','failed','rolled_back') NOT NULL DEFAULT 'pending',
+	`progress` int DEFAULT 0,
+	`totalItems` int,
+	`processedItems` int DEFAULT 0,
+	`conflictResolution` json,
+	`errorMessage` text,
+	`startedAt` timestamp,
+	`completedAt` timestamp,
+	`rollbackAvailable` boolean DEFAULT true,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `restoreOperations_id` PRIMARY KEY(`id`)
+);
