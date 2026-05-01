@@ -258,22 +258,22 @@
 ## Email Notification System
 
 ### Phase 1: Architecture & Database
-- [ ] Design email notification system architecture
-- [ ] Create notifications table (notification_id, user_id, type, status, created_at, sent_at)
-- [ ] Create notification_preferences table (user_id, alert_type, enabled, email, frequency)
-- [ ] Create notification_templates table (template_id, type, subject, body, variables)
-- [ ] Create notification_history table (history_id, notification_id, status, error_message, timestamp)
-- [ ] Add email_verified field to users table
-- [ ] Add notification_settings to users table
+- [x] Design email notification system architecture
+- [x] Create notifications table (notification_id, user_id, type, status, created_at, sent_at)
+- [x] Create notification_preferences table (user_id, alert_type, enabled, email, frequency)
+- [x] Create notification_templates table (template_id, type, subject, body, variables)
+- [x] Create notification_history table (history_id, notification_id, status, error_message, timestamp)
+- [x] Add email_verified field to users table
+- [x] Add notification_settings to users table
 
 ### Phase 2: Email Service Integration
-- [ ] Setup SMTP configuration (environment variables)
-- [ ] Implement SendGrid integration as primary provider
-- [ ] Add SMTP fallback option
-- [ ] Create email service helper (server/_core/email.ts)
-- [ ] Implement email validation and retry logic
-- [ ] Add email template rendering with variables
-- [ ] Setup email rate limiting and throttling
+- [x] Setup SMTP configuration (environment variables)
+- [x] Implement SendGrid integration as primary provider
+- [x] Add SMTP fallback option
+- [x] Create email service helper (server/_core/email.ts)
+- [x] Implement email validation and retry logic
+- [x] Add email template rendering with variables
+- [x] Setup email rate limiting and throttling
 
 ### Phase 3: Alert Detection & Triggers
 - [ ] Implement agent failure detection (status change to FAILED)
@@ -284,7 +284,15 @@
 - [ ] Implement alert aggregation (batch multiple alerts)
 - [ ] Create alert scheduling (respect quiet hours)
 
-### Phase 4: Notification UI
+### Phase 3.5: Email Templates (COMPLETED)
+- [x] Create agent failure alert template with HTML and plain text
+- [x] Create agent recovery notification template
+- [x] Create budget warning template (80% threshold)
+- [x] Create budget critical template (100% threshold)
+- [x] Implement template variable substitution using [VAR_NAME] syntax
+- [x] Add template validation and variable extraction utilities
+
+### Phase 4: Notification UI (NEXT)
 - [ ] Create Notification Settings page
 - [ ] Build email preference form (enable/disable alerts)
 - [ ] Add notification frequency selector (immediate, daily digest, weekly)
@@ -293,19 +301,19 @@
 - [ ] Add notification bell icon with unread count
 - [ ] Build notification center dropdown
 
-### Phase 5: Email Templates
-- [ ] Create agent failure alert template
-- [ ] Create budget warning template (80%)
-- [ ] Create budget critical template (100%)
-- [ ] Create daily digest template
-- [ ] Create weekly summary template
-- [ ] Add HTML and plain text versions
-- [ ] Implement template variable substitution
+### Phase 5: Email Templates (COMPLETED)
+- [x] Create agent failure alert template
+- [x] Create budget warning template (80%)
+- [x] Create budget critical template (100%)
+- [ ] Create daily digest template (Phase 2)
+- [ ] Create weekly summary template (Phase 2)
+- [x] Add HTML and plain text versions
+- [x] Implement template variable substitution
 
-### Phase 6: Backend Services
+### Phase 6: Backend Services (IN PROGRESS)
 - [ ] Create tRPC procedures for notification settings
 - [ ] Implement notification creation service
-- [ ] Build email sending service with retry logic
+- [x] Build email sending service with retry logic (email.ts)
 - [ ] Create notification preference management
 - [ ] Implement notification history tracking
 - [ ] Add notification cleanup job (delete old notifications)
