@@ -253,3 +253,75 @@
 - [x] PLUGIN_COMPATIBILITY_TESTING.md - Plugin testing procedures
 - [x] SIDECAR_MIGRATION_GUIDE.md - Sidecar migration procedures
 - [x] EXTERNAL_OAUTH_MIGRATION_GUIDE.md - External OAuth migration guide
+
+
+## Email Notification System
+
+### Phase 1: Architecture & Database
+- [ ] Design email notification system architecture
+- [ ] Create notifications table (notification_id, user_id, type, status, created_at, sent_at)
+- [ ] Create notification_preferences table (user_id, alert_type, enabled, email, frequency)
+- [ ] Create notification_templates table (template_id, type, subject, body, variables)
+- [ ] Create notification_history table (history_id, notification_id, status, error_message, timestamp)
+- [ ] Add email_verified field to users table
+- [ ] Add notification_settings to users table
+
+### Phase 2: Email Service Integration
+- [ ] Setup SMTP configuration (environment variables)
+- [ ] Implement SendGrid integration as primary provider
+- [ ] Add SMTP fallback option
+- [ ] Create email service helper (server/_core/email.ts)
+- [ ] Implement email validation and retry logic
+- [ ] Add email template rendering with variables
+- [ ] Setup email rate limiting and throttling
+
+### Phase 3: Alert Detection & Triggers
+- [ ] Implement agent failure detection (status change to FAILED)
+- [ ] Create critical alert trigger for agent crashes
+- [ ] Implement budget warning trigger (80% of threshold)
+- [ ] Create budget critical trigger (100% of threshold)
+- [ ] Add alert deduplication (prevent duplicate emails within 1 hour)
+- [ ] Implement alert aggregation (batch multiple alerts)
+- [ ] Create alert scheduling (respect quiet hours)
+
+### Phase 4: Notification UI
+- [ ] Create Notification Settings page
+- [ ] Build email preference form (enable/disable alerts)
+- [ ] Add notification frequency selector (immediate, daily digest, weekly)
+- [ ] Implement email verification flow
+- [ ] Create notification history view
+- [ ] Add notification bell icon with unread count
+- [ ] Build notification center dropdown
+
+### Phase 5: Email Templates
+- [ ] Create agent failure alert template
+- [ ] Create budget warning template (80%)
+- [ ] Create budget critical template (100%)
+- [ ] Create daily digest template
+- [ ] Create weekly summary template
+- [ ] Add HTML and plain text versions
+- [ ] Implement template variable substitution
+
+### Phase 6: Backend Services
+- [ ] Create tRPC procedures for notification settings
+- [ ] Implement notification creation service
+- [ ] Build email sending service with retry logic
+- [ ] Create notification preference management
+- [ ] Implement notification history tracking
+- [ ] Add notification cleanup job (delete old notifications)
+
+### Phase 7: Testing
+- [ ] Write unit tests for email service (10+ tests)
+- [ ] Test notification trigger logic
+- [ ] Test email template rendering
+- [ ] Test notification preferences storage/retrieval
+- [ ] Test rate limiting and deduplication
+- [ ] Integration test: full alert flow
+- [ ] Test email delivery and retry logic
+
+### Phase 8: Documentation & Delivery
+- [ ] Create email notification setup guide
+- [ ] Document environment variables required
+- [ ] Add troubleshooting guide
+- [ ] Create user documentation for notification settings
+- [ ] Add API documentation for notification endpoints

@@ -393,3 +393,112 @@ export const monitoringConfigurations = mysqlTable("monitoringConfigurations", {
 
 export type MonitoringConfiguration = typeof monitoringConfigurations.$inferSelect;
 export type InsertMonitoringConfiguration = typeof monitoringConfigurations.$inferInsert;
+
+/**
+ * Notification Preferences table - stores user email notification preferences
+ */
+export const notificationPreferences = mysqlTable("notificationPreferences", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().unique(),
+  email: varchar("email", { length: 320 }).notNull(),
+  emailVerified: boolean("emailVerified").default(false),
+  emailVerificationToken: varchar("emailVerificationToken", { length: 255 }),
+  emailVerificationExpires: timestamp("emailVerificationExpires"),
+  agentFailureAlerts: boolean("agentFailureAlerts").default(true),
+  budgetWarningAlerts: boolean("budgetWarningAlerts").default(true),
+  budgetCriticalAlerts: boolean("budgetCriticalAlerts").default(true),
+  highErrorRateAlerts: boolean("highErrorRateAlerts").default(true),
+  highCpuAlerts: boolean("highCpuAlerts").default(true),
+  highMemoryAlerts: boolean("highMemoryAlerts").default(true),
+  notificationFrequency: mysqlEnum("notificationFrequency", ["immediate", "daily_digest", "weekly_digest"]).default("immediate"),
+  quietHoursStart: varchar("quietHoursStart", { length: 5 }), // HH:MM format
+  quietHoursEnd: varchar("quietHoursEnd", { length: 5 }), // HH:MM format
+  timezone: varchar("timezone", { length: 50 }).default("UTC"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type NotificationPreference = typeof notificationPreferences.$inferSelect;
+export type InsertNotificationPreference = typeof notificationPreferences.$inferInsert;
+
+/**
+ * Notifications table - stores individual notifications sent to users
+ */
+export const notifications = mysqlTable("notifications", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  notificationType: mysqlEnum("notificationType", [
+    "agent_failure",
+    "agent_recovery",
+    "budget_warning",
+    "budget_critical",
+    "high_error_rate",
+    "high_cpu",
+    "high_memory",
+    "connection_lost",
+    "daily_digest",
+    "weekly_digest"
+  ]).notNull(),
+  severity: mysqlEnum("severity", ["critical", "warning", "info"]).notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
+  message: text("message").notNull(),
+  relatedAlertId: int("relatedAlertId"),
+  relatedAgentId: int("relatedAgentId"),
+  recipientEmail: varchar("recipientEmail", { length: 320 }).notNull(),
+  status: mysqlEnum("status", ["pending", "sent", "failed", "bounced"]).default("pending"),
+  sentAt: timestamp("sentAt"),
+  failureReason: text("failureReason"),
+  retryCount: int("retryCount").default(0),
+  lastRetryAt: timestamp("lastRetryAt"),
+  metadata: json("metadata"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Notification = typeof notifications.$inferSelect;
+export type InsertNotification = typeof notifications.$inferInsert;
+
+/**
+ * Email Templates table - stores customizable email templates
+ */
+export const emailTemplates = mysqlTable("emailTemplates", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId"),
+  templateType: mysqlEnum("templateType", [
+    "agent_failure",
+    "agent_recovery",
+    "budget_warning",
+    "budget_critical",
+    "high_error_rate",
+    "high_cpu",
+    "high_memory",
+    "daily_digest",
+    "weekly_digest"
+  ]).notNull(),
+  subject: varchar("subject", { length: 255 }).notNull(),
+  htmlBody: text("htmlBody").notNull(),
+  plainTextBody: text("plainTextBody"),
+  variables: json("variables"), // List of available template variables
+  isCustom: boolean("isCustom").default(false),
+  isActive: boolean("isActive").default(true),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type EmailTemplate = typeof emailTemplates.$inferSelect;
+export type InsertEmailTemplate = typeof emailTemplates.$inferInsert;
+
+/**
+ * Notification History table - tracks all notification delivery attempts
+ */
+export const notificationHistory = mysqlTable("notificationHistory", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  notificationId: int("notificationId").notNull(),
+  event: mysqlEnum("event", ["created", "sent", "failed", "retried", "bounced", "opened", "clicked"]).notNull(),
+  details: text("details"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type NotificationHistory = typeof notificationHistory.$inferSelect;
+export type InsertNotificationHistory = typeof notificationHistory.$inferInsert;

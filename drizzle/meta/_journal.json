@@ -29,6 +29,13 @@
       "when": 1770473229000,
       "tag": "0003_sad_gabe_jones",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1777679308735,
+      "tag": "0004_fancy_blade",
+      "breakpoints": true
     }
   ]
 }
