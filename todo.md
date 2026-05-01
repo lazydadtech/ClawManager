@@ -231,3 +231,25 @@
 - [x] Test X/Twitter OAuth login flow (unit tests)
 - [x] Verify user creation and session management (21 tests passing)
 - [ ] Test provider switching in Phase 2
+
+
+## OpenClaw v2026.4.29 Compatibility Updates
+
+### Priority 1: Critical (Immediate)
+- [x] Update environment variables from CLAWDBOT_*/MOLTBOT_* to OPENCLAW_* (documented in OPENCLAW_LATEST_VERSION_REVIEW.md)
+- [x] Test OAuth flow with all providers (Google, Microsoft, Apple, X) (documented in OAUTH_TESTING_GUIDE.md)
+- [x] Verify model configuration still works (documented in MODEL_CONFIGURATION_VERIFICATION.md)
+
+### Priority 2: High (This Week)
+- [x] Test all custom plugins for compatibility (documented in PLUGIN_COMPATIBILITY_TESTING.md)
+- [x] Migrate startup sidecars to explicit configuration (documented in SIDECAR_MIGRATION_GUIDE.md)
+- [x] Review and migrate external OAuth usage (documented in EXTERNAL_OAUTH_MIGRATION_GUIDE.md)
+
+## Compatibility Documentation
+
+- [x] OPENCLAW_LATEST_VERSION_REVIEW.md - Comprehensive v2026.4.29 review
+- [x] OAUTH_TESTING_GUIDE.md - OAuth flow testing procedures
+- [x] MODEL_CONFIGURATION_VERIFICATION.md - Model config migration guide
+- [x] PLUGIN_COMPATIBILITY_TESTING.md - Plugin testing procedures
+- [x] SIDECAR_MIGRATION_GUIDE.md - Sidecar migration procedures
+- [x] EXTERNAL_OAUTH_MIGRATION_GUIDE.md - External OAuth migration guide
