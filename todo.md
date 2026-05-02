@@ -430,3 +430,63 @@
 - [ ] Document OpenClaw integration setup
 - [ ] Provide configuration examples
 - [ ] Add troubleshooting guide
+
+
+## OpenClaw Dashboard UI
+
+### Phase 1: Agent List Component
+- [ ] Create OpenClawAgents.tsx main page
+- [ ] Build agent list with status indicators
+- [ ] Add connection status display
+- [ ] Implement agent filtering and search
+- [ ] Add polling status indicator
+
+### Phase 2: Agent Detail View
+- [ ] Create agent detail modal/page
+- [ ] Display agent metadata
+- [ ] Show real-time metrics
+- [ ] Add agent action buttons
+- [ ] Implement back navigation
+
+### Phase 3: Metrics Visualization
+- [ ] Install and configure Recharts
+- [ ] Create metrics charts component
+- [ ] Display uptime trends
+- [ ] Show task completion rates
+- [ ] Add CPU/memory usage charts
+- [ ] Implement time range selector
+
+### Phase 4: Command Execution
+- [ ] Create command execution modal
+- [ ] Build command selection UI
+- [ ] Add parameter input forms
+- [ ] Implement confirmation dialogs
+- [ ] Display command results
+- [ ] Add command history
+
+### Phase 5: Real-Time Updates
+- [ ] Implement WebSocket subscriptions
+- [ ] Add status update callbacks
+- [ ] Update UI on agent changes
+- [ ] Show notification toasts
+- [ ] Implement auto-refresh
+
+### Phase 6: Connection Settings
+- [ ] Create settings modal
+- [ ] Add host URL input
+- [ ] Add API token input
+- [ ] Implement connection test
+- [ ] Add polling configuration
+- [ ] Save settings to localStorage
+
+### Phase 7: Testing
+- [ ] Write component tests
+- [ ] Test agent list rendering
+- [ ] Test metrics display
+- [ ] Test command execution
+- [ ] Test error handling
+
+### Phase 8: Documentation
+- [ ] Document dashboard features
+- [ ] Add usage guide
+- [ ] Document API integration

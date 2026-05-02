@@ -14,6 +14,7 @@ import DocuDigest from "./pages/DocuDigest";
 import AgentHub from "./pages/AgentHub";
 import BackupRestore from "./pages/BackupRestore";
 import ApiConfiguration from "./pages/ApiConfiguration";
+import { OpenClawAgents } from "./pages/OpenClawAgents";
 
 function Router() {
   return (
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/cron-jobs" component={CronJobs} />
       <Route path="/docu-digest" component={DocuDigest} />
       <Route path="/agent-hub" component={AgentHub} />
+      <Route path="/openclaw-agents" component={OpenClawAgents} />
       <Route path="/backup-restore" component={BackupRestore} />
       <Route path="/api-config" component={ApiConfiguration} />
       <Route path="/404" component={NotFound} />
