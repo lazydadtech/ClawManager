@@ -5,6 +5,7 @@ import { publicProcedure, router } from "./_core/trpc";
 import { monitoringRouter } from "./routers/monitoring";
 import { backupRouter } from "./routers/backup";
 import { alertRouter } from "./routers/alerts";
+import { openclawRouter } from "./routers/openclaw";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -12,6 +13,7 @@ export const appRouter = router({
   monitoring: monitoringRouter,
   backup: backupRouter,
   alert: alertRouter,
+  openclaw: openclawRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {

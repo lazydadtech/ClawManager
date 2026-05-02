@@ -386,3 +386,47 @@
 - [ ] Document tRPC alert procedures
 - [ ] Create user guide for alert settings
 - [ ] Final checkpoint and delivery
+
+
+## OpenClaw Host Integration (Lightweight)
+
+### Phase 1: OpenClaw API Client
+- [ ] Create OpenClaw API client service (server/_core/openclawClient.ts)
+- [ ] Implement dynamic host configuration
+- [ ] Add session management
+- [ ] Support WebSocket connections to OpenClaw gateway
+
+### Phase 2: Agent Discovery
+- [ ] Query OpenClaw gateway for active sessions
+- [ ] Map sessions to agents
+- [ ] Track agent metadata (name, type, status)
+- [ ] Cache agent list with TTL
+
+### Phase 3: Real-Time Polling
+- [ ] Implement agent status polling service
+- [ ] Query agent metrics from OpenClaw
+- [ ] Track agent health and uptime
+- [ ] Detect agent failures and recoveries
+
+### Phase 4: Dashboard UI
+- [ ] Display OpenClaw agents in dashboard
+- [ ] Show agent status and metrics
+- [ ] Create agent detail view
+- [ ] Add agent filtering and search
+
+### Phase 5: Command Execution
+- [ ] Send commands to agents via OpenClaw
+- [ ] Execute agent tools and functions
+- [ ] Display command results
+- [ ] Add command history
+
+### Phase 6: Integration Tests
+- [ ] Test OpenClaw client initialization
+- [ ] Test agent discovery
+- [ ] Test status polling
+- [ ] Test command execution
+
+### Phase 7: Documentation
+- [ ] Document OpenClaw integration setup
+- [ ] Provide configuration examples
+- [ ] Add troubleshooting guide
